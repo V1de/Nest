@@ -63,7 +63,8 @@ $ nest (назва проекту)
 
 Короткий опис основних файлів
 
-| `app.controller.ts`      | Базовий контролер з єдиним маршрутом                                                                      |
+
+| app.controller.ts     | Базовий контролер з єдиним маршрутом                                                                      |
 | `app.controller.spec.ts` | Блок тестів для контролера                                                                                |
 | `app.module.ts`          | The root module of the application                                                                        |
 | `app.service.ts`         | Базовий сервіс з одним методом                                                                            |
