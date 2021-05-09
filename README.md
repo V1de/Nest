@@ -75,4 +75,4 @@ $ nest (назва проекту)
 
 Контролери відповідають за обробку вхідних запитів та повернення відповідей клієнту.
 
-![Controller scheme](http://webdesign.ru.net/images/Heydon_min.jpg)
+![Controller scheme](https://github.com/V1de/web-application/blob/main/images/Controller.jpg)
