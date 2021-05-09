@@ -87,3 +87,30 @@ $ nest (назва проекту)
 nest generate controller (назва)
 ```
 
+## Маршрутизація
+
+У наступному прикладі ми будемо використовувати декоратор @Controller (), який необхідний для визначення базового контролера. Ми вкажемо необов’язковий префікс шляху маршруту (users). Використання префіксу шляху в декораторі @Controller () дозволяє легко згрупувати набір пов’язаних маршрутів та мінімізувати повторюваний код.
+
+```ts
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { UsersService } from './users.service';
+
+@Controller('users')
+export class UsersController {
+  constructor(private usersService: UsersService) {}
+  @Get()
+  getUsers() {
+    return this.usersService.getUsers();
+  }
+
+  @Get(':id')
+  getUserById(@Param('id') id: string) {
+    return this.usersService.getUserById(Number(id));
+  }
+
+  @Post()
+  async addUser(@Body() user: CreateUserDto) {
+    this.usersService.addUser(user);
+  }
+}
+```
