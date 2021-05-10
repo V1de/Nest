@@ -507,4 +507,4 @@ describe('UsersService', () => {
 
 Офіційний сайт документації NestJS: [docs.nestjs.com](https://docs.nestjs.com/)
 
-## Матеріал підготував - [V1de](https://github.com/V1de)
+Матеріал підготував - [V1de](https://github.com/V1de)
