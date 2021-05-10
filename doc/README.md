@@ -423,4 +423,4 @@ export class AppModule {}
 
 Приклад обробленого Get запиту для отримання користувача з не існуючим id:
 
-![Get by id failed request picture](https://github.com/V1de/web-application/blob/main/doc/images/FailedRequest.jpg)
+![Get by id failed request picture](https://github.com/V1de/web-application/blob/main/doc/images/FailedRequest.png)
