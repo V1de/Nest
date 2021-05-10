@@ -288,10 +288,13 @@ interface CreateUserDto {
 }
 ```
 
-Та створимо порожній масив користувачів:
+Та створимо масив користувачів з тестовими данними:
 
 ```ts
-private users: User[] = [];
+private users: User[] = [
+    { id: 1, name: 'John Doe', age: 26 },
+    { id: 2, name: 'Jane Doe', age: 22 },
+  ];
 ```
 
 ## Генерація сервісу
@@ -356,7 +359,7 @@ export class UsersController {
 
   @Post()
   async addUser(@Body() user: CreateUserDto) {
-    this.usersService.addUser(user);
+    return this.usersService.addUser(user);
   }
 }
 ```
@@ -406,3 +409,14 @@ export class AppModule {}
 
 # Тестування
 
+Приклад Get запиту для отримання всіх наявних користувачів:
+
+![Get request picture](https://github.com/V1de/web-application/blob/main/doc/images/GetRequest.jpg)
+
+Приклад Post запиту для додавання користувача:
+
+![Post request picture](https://github.com/V1de/web-application/blob/main/doc/images/PostRequest.jpg)
+
+Приклад Get запиту для отримання користувача по id:
+
+![Get by id request picture](https://github.com/V1de/web-application/blob/main/doc/images/GetByIdRequest.jpg)
