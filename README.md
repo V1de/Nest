@@ -91,7 +91,11 @@ nest generate controller (назва)
 
 Результат виконання команди:
 
-![Controller created picture](https://github.com/V1de/web-application/blob/main/images/Create_controller.jpg)
+```console
+CREATE src/example/example.controller.spec.ts (499 bytes)
+CREATE src/example/example.controller.ts (103 bytes)
+UPDATE src/app.module.ts (397 bytes)
+```
 
 ## Маршрутизація
 
@@ -143,7 +147,11 @@ nest generate service (назва)
 
 Результат виконання команди:
 
-![Service created picture](https://github.com/V1de/web-application/blob/main/images/Create_service.jpg)
+```console
+CREATE src/example/example.service.spec.ts (467 bytes)
+CREATE src/example/example.service.ts (91 bytes)
+UPDATE src/app.module.ts (388 bytes)
+```
 
 Команда створила файл (назва).service.spec.ts, який можна використовувати для тестування. Він також створив файл (назва).service.ts, який буде містити всю логіку для цього додатка.
 
@@ -196,8 +204,6 @@ nest generate module (назва)
 ```
 
 Результат виконання команди:
-
-![Module created picture](https://github.com/V1de/web-application/blob/main/images/Create_module.jpg)
 
 ```console
 D:\Repo\Nest>nest generate module example
