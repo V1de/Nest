@@ -199,6 +199,12 @@ nest generate module (назва)
 
 ![Module created picture](https://github.com/V1de/web-application/blob/main/images/Create_module.jpg)
 
+```bash
+D:\Repo\Nest>nest generate module example
+CREATE src/example/example.module.ts (84 bytes)
+UPDATE src/app.module.ts (461 bytes)
+```
+
 Наші UsersController та UsersService тісно пов’язані та належать до одного домену програми. Тому доцільно розмістити їх у модулі разом. Роблячи це, ми впорядковуємо наш код за спільними ознаками. Це особливо корисно у міру зростання нашого додатка.
 
 `users.module.ts`
