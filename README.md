@@ -199,7 +199,7 @@ nest generate module (назва)
 
 ![Module created picture](https://github.com/V1de/web-application/blob/main/images/Create_module.jpg)
 
-```bash
+```console
 D:\Repo\Nest>nest generate module example
 CREATE src/example/example.module.ts (84 bytes)
 UPDATE src/app.module.ts (461 bytes)
