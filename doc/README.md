@@ -320,12 +320,13 @@ export class UsersService {
     throw new HttpException('User not found', HttpStatus.NOT_FOUND);
   }
 
-  addUser(user: CreateUserDto) {
+  async addUser(user: CreateUserDto) {
     const newUser = {
-      id: ++this.users.length,
+      id: this.users.length + 1,
       ...user,
     };
     this.users.push(newUser);
+    return newUser;
   }
 }
 ```
@@ -400,4 +401,8 @@ export class AppModule {}
 Для запуску додатку достатньо в кореневій папці виконати команду `npm run start`
 
 ![Start picture](https://github.com/V1de/web-application/blob/main/doc/images/Start.jpg)
+
+Додаток запущено!
+
+# Тестування
 
