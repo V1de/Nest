@@ -263,3 +263,134 @@ export class AppModule {}
   * контролери для створення екземплярів провайдерів
 * експорти
   * підмножина провайдерів, доступних в інших модулях 
+
+# Приклад API на NestJS
+
+## Імітація бази даних
+
+Створимо інтерфейс сутності користувача:
+
+```ts
+export interface User {
+  id: number;
+  name: string;
+  age: number;
+}
+```
+
+Вводимо поняття об'єкта передачі даних (DTO). Він визначає формат даних, надісланих у запиті. В нашому випадку це буде інтерфейс CreateUserDto.
+
+`createUser.dto.ts`
+
+```ts
+interface CreateUserDto {
+  name: string;
+}
+```
+
+Та створимо порожній масив користувачів:
+
+```ts
+private users: User[] = [];
+```
+
+## Генерація сервісу
+
+Після виконання команди для створення сервісу буде створено два файли `users.service.ts`, який буде містити всю логіку та `users.service.spec.ts`, який можна використовувати для тестування.
+
+Додамо в файл `users.service.ts` методи які будуть працювати з нашою імітованою базою.
+
+```ts
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { User } from './user.interface';
+
+@Injectable()
+export class UsersService {
+  private users: User[] = [];
+
+  getUsers() {
+    return this.users;
+  }
+
+  getUserById(id: number) {
+    const user = this.users.find((user) => user.id === id);
+    if (user) {
+      return user;
+    }
+    throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+  }
+
+  addUser(user: CreateUserDto) {
+    const newUser = {
+      id: ++this.users.length,
+      ...user,
+    };
+    this.users.push(newUser);
+  }
+}
+```
+
+## Генерація контролера
+
+Після виконання команди для створення контролера буде створено два нових файли `users.controller.ts` та `users.controller.spec.ts`. Перший - це файл, який ви можете використовувати для написання автоматизованого тестування для новоствореного контролера. Останній - сам файл контролера.
+
+В файлі `users.controller.ts` описуємо маршрути для отримуваних запитів:
+
+```ts
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { UsersService } from './users.service';
+
+@Controller('users')
+export class UsersController {
+  constructor(private usersService: UsersService) {}
+  @Get()
+  getUsers() {
+    return this.usersService.getUsers();
+  }
+
+  @Get(':id')
+  getUserById(@Param('id') id: string) {
+    return this.usersService.getUserById(Number(id));
+  }
+
+  @Post()
+  async addUser(@Body() user: CreateUserDto) {
+    this.usersService.addUser(user);
+  }
+}
+```
+
+## Створення модулів
+
+Створимо `users.module.ts`:
+
+```ts 
+import { Module } from '@nestjs/common';
+import { UsersController } from './users.controller';
+import { UsersService } from './users.service';
+
+@Module({
+  imports: [],
+  controllers: [UsersController],
+  providers: [UsersService],
+})
+export class UsersModule {}
+```
+
+Та імпортуємо наш модуль в кореневий модуль програми `app.module.ts`:
+
+```ts
+import { Module } from '@nestjs/common';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { UsersModule } from './users/users.module';
+
+@Module({
+  imports: [UsersModule],
+  controllers: [AppController],
+  providers: [AppService],
+})
+export class AppModule {}
+```
+
+Вище створене API готове для тестування.
