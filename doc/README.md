@@ -409,6 +409,10 @@ export class AppModule {}
 
 # Тестування
 
+## Приклади запитів
+
+Використаємо сервіс [reqbin](https://reqbin.com/) для відправки запитів нашому додатку та отримання результатів.
+
 Приклад Get запиту для отримання всіх наявних користувачів:
 
 ![Get request picture](https://github.com/V1de/web-application/blob/main/doc/images/GetRequest.jpg)
@@ -424,3 +428,74 @@ export class AppModule {}
 Приклад обробленого Get запиту для отримання користувача з не існуючим id:
 
 ![Get by id failed request picture](https://github.com/V1de/web-application/blob/main/doc/images/FailedRequest.png)
+
+## Тестування з Nest
+
+Nest прагне просувати найкращі практики розробки, включаючи ефективне тестування, тому включає такі функції, як наведені нижче, щоб допомогти розробникам та командам створювати та автоматизувати тести.
+
+Функції:
+
++ автоматично встановлює стандартні модульні тести для компонентів та тести e2e для додатків;
++ надає інструменти за замовчуванням (наприклад, test runner);
++ забезпечує інтеграцію з Jest та Supertest.
+
+## Встановлення
+
+Для початку потрібно встановити вказаний пакет:
+
+`npm i --save-dev @nestjs/testing`
+
+## Юніт тестинг
+
+У наступному прикладі ми перевіряємо клас UsersService. Як уже згадувалось, Jest надається як тестування за замовчуванням. Він виконує функції тестового запуску, а також надає функції затвердження та утиліти для подвійного тестування. У наступному базовому тесті ми вручну створюємо екземпляр цих класів і гарантуємо, що контролер та служба виконують свої функції.
+
+`users.service.specs.ts`
+
+```ts
+import { Test, TestingModule } from '@nestjs/testing';
+import { UsersService } from './users.service';
+
+describe('UsersService', () => {
+  let service: UsersService;
+
+  beforeEach(async () => {
+    const module: TestingModule = await Test.createTestingModule({
+      providers: [UsersService],
+    }).compile();
+
+    service = module.get<UsersService>(UsersService);
+  });
+
+  it('should return array of users', () => {
+    const result = [
+      { id: 1, name: 'John Doe', age: 26 },
+      { id: 2, name: 'Jane Doe', age: 22 },
+    ];
+    expect(service.getUsers()).toEqual(result);
+  });
+
+  it('should return second user', () => {
+    const result = { id: 1, name: 'John Doe', age: 26 };
+    expect(service.getUserById(2)).toEqual(result);
+  });
+});
+```
+
+### Тест 1
+
+Запуск:
+
+![Start test 1 picture](https://github.com/V1de/web-application/blob/main/doc/images/Test1Start.png)
+
+Результат:
+
+![Test 1 result picture](https://github.com/V1de/web-application/blob/main/doc/images/Test1Result.png)
+
+### Тест 2
+
+Результат:
+
+![Failed test 2 picture](https://github.com/V1de/web-application/blob/main/doc/images/FailedTest.png)
+
+Тест не був пройдений так як відповідь сервера не відповідає передбачуваній!
+
