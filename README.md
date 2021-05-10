@@ -75,4 +75,140 @@ $ nest (назва проекту)
 
 Контролери відповідають за обробку вхідних запитів та повернення відповідей клієнту.
 
-![Controller scheme](http://webdesign.ru.net/images/Heydon_min.jpg)
+![Controller scheme](https://github.com/V1de/web-application/blob/main/images/Controller.jpg)
+
+Призначення контролера - отримувати конкретні запити на додаток. Механізм маршрутизації контролює, який контролер отримує які запити. Часто кожен контролер має більше одного маршруту, і різні маршрути можуть виконувати різні дії.
+
+Для того, щоб створити базовий контролер, ми використовуємо класи та декоратори. Декоратори пов'язують класи з необхідними метаданими і дозволяють Nest створювати карту маршрутів (прив'язувати запити до відповідних контролерів).
+
+### Створення контролера:
+
+```bash
+nest generate controller (назва)
+```
+
+## Маршрутизація
+
+У наступному прикладі ми будемо використовувати декоратор @Controller (), який необхідний для визначення базового контролера. Ми вкажемо необов’язковий префікс шляху маршруту (users). Використання префіксу шляху в декораторі @Controller () дозволяє легко згрупувати набір пов’язаних маршрутів та мінімізувати повторюваний код.
+
+```ts
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { UsersService } from './users.service';
+
+@Controller('users')
+export class UsersController {
+  constructor(private usersService: UsersService) {}
+  @Get()
+  getUsers() {
+    return this.usersService.getUsers();
+  }
+
+  @Get(':id')
+  getUserById(@Param('id') id: string) {
+    return this.usersService.getUserById(Number(id));
+  }
+
+  @Post()
+  async addUser(@Body() user: CreateUserDto) {
+    this.usersService.addUser(user);
+  }
+}
+```
+
+Наступним набором декораторів, підключених до маршрутизації у згаданому контролері, є @Get (), @Post (). Вони вказують Nest створити обробник для певної кінцевої точки для запитів HTTP. Вищевказаний контролер створює такий набір кінцевих точок:
+
+`GET /users` - повертає всіх користувачів
+
+`GET /users/{id}` - повертає користувача з переданим id
+
+`POST /users` - створює нового користувача
+
+За замовчуванням NestJS відповідає кодом стану 200 OK, за винятком 201, створеного для POST. Ми можемо це легко змінити за допомогою декоратора @HttpCode ().
+
+## Сервіси
+
+Сервіс, який також можна назвати постачальником (provider) в Nest.js, був розроблений, щоб видалити логіку з контролерів, які призначені тільки для обробки HTTP-запитів і перенаправити складніші завдання сервісів. Сервіси - це прості класи JavaScript з @Injectable () декоратором поверх них. Щоб створити новий сервіс, виконайте наступну команду в командному рядку, поки ви перебуваєте в каталозі проекту:
+
+`nest generate service (назва)`
+
+Команда створила файл (назва).service.spec.ts, який можна використовувати для тестування. Він також створив файл (назва).service.ts, який буде містити всю логіку для цього додатка.
+
+Сервіс буде обробляти всю логіку в додатку, відповідати за взаємодію з імпровізованою базою даних і повертати відповідні відповіді назад контролеру.
+
+Приклад вмісту файлу (назва).service.ts:
+
+```ts
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { User } from './user.interface';
+
+@Injectable()
+export class UsersService {
+  private users: User[] = [];
+
+  getUsers() {
+    return this.users;
+  }
+
+  getUserById(id: number) {
+    const user = this.users.find((user) => user.id === id);
+    if (user) {
+      return user;
+    }
+    throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+  }
+
+  addUser(user: CreateUserDto) {
+    const newUser = {
+      id: ++this.users.length,
+      ...user,
+    };
+    this.users.push(newUser);
+  }
+}
+```
+
+## Модулі
+
+Модуль - це клас, котрий коментується декоратором @Module (). Декоратор @Module () надає метадані, які Nest використовує для організації структури програми. Наші UsersController та UsersService тісно пов’язані та належать до одного домену програми. Тому доцільно розмістити їх у модулі разом. Роблячи це, ми впорядковуємо наш код за спільними ознаками. Це особливо корисно у міру зростання нашого додатка.
+
+`users.module.ts`
+
+```ts
+import { Module } from '@nestjs/common';
+import { UsersController } from './users.controller';
+import { UsersService } from './users.service';
+
+@Module({
+  imports: [],
+  controllers: [UsersController],
+  providers: [UsersService],
+})
+export class UsersModule {}
+```
+
+Крім того, кожному додатку потрібен кореневий модуль. Це відправна точка для Nest при створенні програми.
+
+`app.module.ts`
+
+```ts
+import { Module } from '@nestjs/common';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { UsersModule } from './users/users.module';
+
+@Module({
+  imports: [UsersModule],
+  controllers: [AppController],
+  providers: [AppService],
+})
+export class AppModule {}
+```
+
+Модуль містить:
+* імпорти
+  * імпортовані модулі - NestJS використовує UsersModule завдяки імпортуванню його в наш AppModule
+* контролери 
+  * контролери для створення екземплярів провайдерів
+* експорти
+  * підмножина провайдерів, доступних в інших модулях 
+
