@@ -485,17 +485,17 @@ describe('UsersService', () => {
 
 Запуск:
 
-![Start test 1 picture](https://github.com/V1de/web-application/blob/main/doc/images/Test1Start.png)
+![Start test 1 picture](https://github.com/V1de/web-application/blob/main/doc/images/Test1Start.jpg)
 
 Результат:
 
-![Test 1 result picture](https://github.com/V1de/web-application/blob/main/doc/images/Test1Result.png)
+![Test 1 result picture](https://github.com/V1de/web-application/blob/main/doc/images/Test1Result.jpg)
 
 ### Тест 2
 
 Результат:
 
-![Failed test 2 picture](https://github.com/V1de/web-application/blob/main/doc/images/FailedTest.png)
+![Failed test 2 picture](https://github.com/V1de/web-application/blob/main/doc/images/FailedTest.jpg)
 
 Тест не був пройдений так як відповідь сервера не відповідає передбачуваній!
 
