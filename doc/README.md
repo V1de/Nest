@@ -394,3 +394,10 @@ export class AppModule {}
 ```
 
 Вище створене API готове для тестування.
+
+## Запуск додатку
+
+Для запуску додатку достатньо в кореневій папці виконати команду `npm run start`
+
+[Start picture]((https://github.com/V1de/web-application/blob/main/doc/images/Start.jpg)
+
