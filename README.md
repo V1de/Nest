@@ -167,3 +167,48 @@ export class UsersService {
 }
 ```
 
+## Модулі
+
+Модуль - це клас, котрий коментується декоратором @Module (). Декоратор @Module () надає метадані, які Nest використовує для організації структури програми. Наші UsersController та UsersService тісно пов’язані та належать до одного домену програми. Тому доцільно розмістити їх у модулі разом. Роблячи це, ми впорядковуємо наш код за спільними ознаками. Це особливо корисно у міру зростання нашого додатка.
+
+`users.module.ts`
+
+```ts
+import { Module } from '@nestjs/common';
+import { UsersController } from './users.controller';
+import { UsersService } from './users.service';
+
+@Module({
+  imports: [],
+  controllers: [UsersController],
+  providers: [UsersService],
+})
+export class UsersModule {}
+```
+
+Крім того, кожному додатку потрібен кореневий модуль. Це відправна точка для Nest при створенні програми.
+
+`app.module.ts`
+
+```ts
+import { Module } from '@nestjs/common';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { UsersModule } from './users/users.module';
+
+@Module({
+  imports: [UsersModule],
+  controllers: [AppController],
+  providers: [AppService],
+})
+export class AppModule {}
+```
+
+Модуль містить:
+* імпорти
+  * імпортовані модулі - NestJS використовує UsersModule завдяки імпортуванню його в наш AppModule
+* контролери 
+  * контролери для створення екземплярів провайдерів
+* експорти
+  * підмножина провайдерів, доступних в інших модулях 
+
