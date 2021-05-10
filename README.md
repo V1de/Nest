@@ -91,7 +91,7 @@ nest generate controller (назва)
 
 Результат виконання команди:
 
-![Controller created picture](https://github.com/V1de/web-application/blob/main/images/Create controller.jpg)
+![Controller created picture](https://github.com/V1de/web-application/blob/main/images/Create_controller.jpg)
 
 ## Маршрутизація
 
@@ -143,7 +143,7 @@ nest generate service (назва)
 
 Результат виконання команди:
 
-![Service created picture](https://github.com/V1de/web-application/blob/main/images/Create service.jpg)
+![Service created picture](https://github.com/V1de/web-application/blob/main/images/Create_service.jpg)
 
 Команда створила файл (назва).service.spec.ts, який можна використовувати для тестування. Він також створив файл (назва).service.ts, який буде містити всю логіку для цього додатка.
 
@@ -197,7 +197,7 @@ nest generate module (назва)
 
 Результат виконання команди:
 
-![Module created picture](https://github.com/V1de/web-application/blob/main/images/Create module.jpg)
+![Module created picture](https://github.com/V1de/web-application/blob/main/images/Create_module.jpg)
 
 Наші UsersController та UsersService тісно пов’язані та належать до одного домену програми. Тому доцільно розмістити їх у модулі разом. Роблячи це, ми впорядковуємо наш код за спільними ознаками. Це особливо корисно у міру зростання нашого додатка.
 
