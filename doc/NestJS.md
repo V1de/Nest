@@ -205,7 +205,7 @@ export class UsersService {
 
 Модуль - це клас, котрий коментується декоратором @Module (). Декоратор @Module () надає метадані, які Nest використовує для організації структури програми.
 
-![Modules scheme](https://github.com/V1de/web-application/blob/main/doc/images/Modules.jpg)
+![Modules scheme](./images/Modules.jpg)
 
 Щоб створити новий модуль, виконайте наступну команду в командному рядку, поки ви перебуваєте в каталозі проекту:
 
@@ -403,7 +403,7 @@ export class AppModule {}
 
 Для запуску додатку достатньо в кореневій папці виконати команду `npm run start`
 
-![Start picture](https://github.com/V1de/web-application/blob/main/doc/images/Start.jpg)
+![Start picture](./images/Start.jpg)
 
 Додаток запущено!
 
@@ -415,19 +415,19 @@ export class AppModule {}
 
 Приклад Get запиту для отримання всіх наявних користувачів:
 
-![Get request picture](https://github.com/V1de/web-application/blob/main/doc/images/GetRequest.jpg)
+![Get request picture](./images/GetRequest.jpg)
 
 Приклад Post запиту для додавання користувача:
 
-![Post request picture](https://github.com/V1de/web-application/blob/main/doc/images/PostRequest.jpg)
+![Post request picture](./images/PostRequest.jpg)
 
 Приклад Get запиту для отримання користувача по id:
 
-![Get by id request picture](https://github.com/V1de/web-application/blob/main/doc/images/GetByIdRequest.jpg)
+![Get by id request picture](./images/GetByIdRequest.jpg)
 
 Приклад обробленого Get запиту для отримання користувача з не існуючим id:
 
-![Get by id failed request picture](https://github.com/V1de/web-application/blob/main/doc/images/FailedRequest.png)
+![Get by id failed request picture](./images/FailedRequest.png)
 
 ## Тестування з Nest
 
@@ -485,17 +485,17 @@ describe('UsersService', () => {
 
 Запуск:
 
-![Start test 1 picture](https://github.com/V1de/web-application/blob/main/doc/images/Test1Start.jpg)
+![Start test 1 picture](./images/Test1Start.jpg)
 
 Результат:
 
-![Test 1 result picture](https://github.com/V1de/web-application/blob/main/doc/images/Test1Result.jpg)
+![Test 1 result picture](./images/Test1Result.jpg)
 
 ### Тест 2
 
 Результат:
 
-![Failed test 2 picture](https://github.com/V1de/web-application/blob/main/doc/images/FailedTest.jpg)
+![Failed test 2 picture](./images/FailedTest.jpg)
 
 Тест не був пройдений так як відповідь сервера не відповідає передбачуваній!
 
