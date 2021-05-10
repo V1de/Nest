@@ -503,7 +503,7 @@ describe('UsersService', () => {
 
 ## Rорисні посилання
 
-Посилання на готовий проект в GitHub: [посилання на репозиторій](https://github.com/V1de/web-application)
+Посилання на готовий проект в GitHub: [посилання на репозиторій](../web-application)
 
 Офіційний сайт документації NestJS: [docs.nestjs.com](https://docs.nestjs.com/)
 
