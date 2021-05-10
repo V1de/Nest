@@ -1,7 +1,3 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
-</p>
-
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
 [circleci-url]: https://circleci.com/gh/nestjs/nest
 
@@ -75,7 +71,7 @@ $ nest (назва проекту)
 
 Контролери відповідають за обробку вхідних запитів та повернення відповідей клієнту.
 
-![Controller scheme](https://github.com/V1de/web-application/blob/main/images/Controller.jpg)
+![Controller scheme](https://github.com/V1de/web-application/blob/main/doc/images/Controller.jpg)
 
 Призначення контролера - отримувати конкретні запити на додаток. Механізм маршрутизації контролює, який контролер отримує які запити. Часто кожен контролер має більше одного маршруту, і різні маршрути можуть виконувати різні дії.
 
@@ -91,7 +87,11 @@ nest generate controller (назва)
 
 Результат виконання команди:
 
-![Controller created picture](https://github.com/V1de/web-application/blob/main/images/Create controller.jpg)
+```console
+CREATE src/example/example.controller.spec.ts (499 bytes)
+CREATE src/example/example.controller.ts (103 bytes)
+UPDATE src/app.module.ts (397 bytes)
+```
 
 ## Маршрутизація
 
@@ -131,6 +131,20 @@ export class UsersController {
 
 За замовчуванням NestJS відповідає кодом стану 200 OK, за винятком 201, створеного для POST. Ми можемо це легко змінити за допомогою декоратора @HttpCode ().
 
+## Доступ до тіла запиту
+
+Коли ми обробляємо POST у контролері вище, нам також потрібно отримати доступ до тіла запиту. Роблячи це, ми можемо використовувати його для заповнення нашої імпровізованої бази даних.
+
+NestJS пропонує декоратор @Body (), який забезпечує нам легкий доступ до тіла. Як і в серії TypeScript Express, ми вводимо поняття об'єкта передачі даних (DTO). Він визначає формат даних, надісланих у запиті. Це може бути як інтерфейс, так і клас.
+
+`createUser.dto.ts`
+
+```ts
+interface CreateUserDto {
+  name: string;
+}
+```
+
 ## Сервіси
 
 Сервіс, який також можна назвати постачальником (provider) в Nest.js, був розроблений, щоб видалити логіку з контролерів, які призначені тільки для обробки HTTP-запитів і перенаправити складніші завдання сервісів. Сервіси - це прості класи JavaScript з @Injectable () декоратором поверх них. 
@@ -143,7 +157,11 @@ nest generate service (назва)
 
 Результат виконання команди:
 
-![Service created picture](https://github.com/V1de/web-application/blob/main/images/Create service.jpg)
+```console
+CREATE src/example/example.service.spec.ts (467 bytes)
+CREATE src/example/example.service.ts (91 bytes)
+UPDATE src/app.module.ts (388 bytes)
+```
 
 Команда створила файл (назва).service.spec.ts, який можна використовувати для тестування. Він також створив файл (назва).service.ts, який буде містити всю логіку для цього додатка.
 
@@ -187,7 +205,7 @@ export class UsersService {
 
 Модуль - це клас, котрий коментується декоратором @Module (). Декоратор @Module () надає метадані, які Nest використовує для організації структури програми.
 
-![Modules scheme](https://github.com/V1de/web-application/blob/main/images/Modules.jpg)
+![Modules scheme](https://github.com/V1de/web-application/blob/main/doc/images/Modules.jpg)
 
 Щоб створити новий модуль, виконайте наступну команду в командному рядку, поки ви перебуваєте в каталозі проекту:
 
@@ -197,7 +215,11 @@ nest generate module (назва)
 
 Результат виконання команди:
 
-![Module created picture](https://github.com/V1de/web-application/blob/main/images/Create module.jpg)
+```console
+D:\Repo\Nest>nest generate module example
+CREATE src/example/example.module.ts (84 bytes)
+UPDATE src/app.module.ts (461 bytes)
+```
 
 Наші UsersController та UsersService тісно пов’язані та належать до одного домену програми. Тому доцільно розмістити їх у модулі разом. Роблячи це, ми впорядковуємо наш код за спільними ознаками. Це особливо корисно у міру зростання нашого додатка.
 
@@ -241,4 +263,3 @@ export class AppModule {}
   * контролери для створення екземплярів провайдерів
 * експорти
   * підмножина провайдерів, доступних в інших модулях 
-
