@@ -420,3 +420,7 @@ export class AppModule {}
 Приклад Get запиту для отримання користувача по id:
 
 ![Get by id request picture](https://github.com/V1de/web-application/blob/main/doc/images/GetByIdRequest.jpg)
+
+Приклад обробленого Get запиту для отримання користувача з не існуючим id:
+
+![Get by id failed request picture](https://github.com/V1de/web-application/blob/main/doc/images/FailedRequest.jpg)
