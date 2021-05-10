@@ -124,3 +124,46 @@ export class UsersController {
 `POST /users` - створює нового користувача
 
 За замовчуванням NestJS відповідає кодом стану 200 OK, за винятком 201, створеного для POST. Ми можемо це легко змінити за допомогою декоратора @HttpCode ().
+
+## Сервіси
+
+Сервіс, який також можна назвати постачальником (provider) в Nest.js, був розроблений, щоб видалити логіку з контролерів, які призначені тільки для обробки HTTP-запитів і перенаправити складніші завдання сервісів. Сервіси - це прості класи JavaScript з @Injectable () декоратором поверх них. Щоб створити новий сервіс, виконайте наступну команду в командному рядку, поки ви перебуваєте в каталозі проекту:
+
+`nest generate service (назва)`
+
+Команда створила файл (назва).service.spec.ts, який можна використовувати для тестування. Він також створив файл (назва).service.ts, який буде містити всю логіку для цього додатка.
+
+Сервіс буде обробляти всю логіку в додатку, відповідати за взаємодію з імпровізованою базою даних і повертати відповідні відповіді назад контролеру.
+
+Приклад вмісту файлу (назва).service.ts:
+
+```ts
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { User } from './user.interface';
+
+@Injectable()
+export class UsersService {
+  private users: User[] = [];
+
+  getUsers() {
+    return this.users;
+  }
+
+  getUserById(id: number) {
+    const user = this.users.find((user) => user.id === id);
+    if (user) {
+      return user;
+    }
+    throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+  }
+
+  addUser(user: CreateUserDto) {
+    const newUser = {
+      id: ++this.users.length,
+      ...user,
+    };
+    this.users.push(newUser);
+  }
+}
+```
+
